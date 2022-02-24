@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -16,7 +16,8 @@ import Empty from "components/Appointment/Empty"
 import Show from "components/Appointment/Show"
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
-import Error from "components/Appointment/Error"
+import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 
 
 import { act } from "@testing-library/react";
@@ -168,3 +169,35 @@ storiesOf("Appointment", module)
   .add('Status', () => <Status message='Deleting' />)
   //for Error component
   .add('Error', () => <Error message='Could not delete appointment.' onClose={action('onClose')} />)
+  //for Form Create
+  .add('Create', () => <Form
+    interviewers={interviewers}
+    onSave={action('onSave')}
+    onCancel={action('onCancel')}
+  />)
+  //for Form Edit
+  .add('Edit', () => <Form
+    student='Berserker'
+    interviewer={2}
+    interviewers={interviewers}
+    onSave={action('onSave')}
+    onCancel={action('onCancel')}
+  />)
+  //for Appointment Empty
+  .add("Appointment Empty", () => (
+    <Fragment>
+      <Appointment id={1} time="4pm" />
+      <Appointment time="5pm" />
+    </Fragment>
+  ))
+  //for Appointment Booked
+  .add("Appointment Booked", () => (
+    <Fragment>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer }}
+      />
+      <Appointment time="5pm" />
+    </Fragment>
+  ))
