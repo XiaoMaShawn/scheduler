@@ -15,8 +15,12 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
-const EDIT = "EDIT"
+const EDIT = "EDIT";
+const ERROR_SAVING = "ERROR_SAVING";
+const ERROR_DELETING = "ERROR_DELETING";
+
 
 const Appointment = (props) => {
 
@@ -36,7 +40,8 @@ const Appointment = (props) => {
     // console.log('second interview here', interview);
     // console.log('id is here', props.id);
     props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch((err) => transition(ERROR_SAVING, true));
   };
 
   function onEdit() {
@@ -45,14 +50,17 @@ const Appointment = (props) => {
 
   function onDelete() {
     transition(CONFIRM);
+
     // props.cancelInterview(props.id)
     // console.log('id here', props.id);
     // transition(EMPTY);
   };
 
   function onConfirm() {
+    transition(DELETING, true);
     props.cancelInterview(props.id)
-    transition(EMPTY);
+      .then(() => transition(EMPTY))
+      .catch((err) => transition(ERROR_DELETING, true));
   };
 
   function onCancel() {
@@ -91,6 +99,8 @@ const Appointment = (props) => {
 
       {mode === SAVING && <Status message={'Saving'} />}
 
+      {mode === DELETING && <Status message={'Deleting'} />}
+
       {mode === CONFIRM && <Confirm
         message={'Are you sure you would like to delete?'}
         onConfirm={onConfirm}
@@ -106,6 +116,16 @@ const Appointment = (props) => {
           back();
         }}
       />}
+
+      {mode === ERROR_SAVING && (<Error
+        message={'Could not book appointment'}
+        onClose={onCancel}
+      />)}
+
+      {mode === ERROR_DELETING && (<Error
+        message={'Could not delete appointment'}
+        onClose={onCancel}
+      />)}
 
       {/* {{props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : <Empty />}} */}
     </article>

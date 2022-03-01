@@ -36,8 +36,9 @@ export default function Application(props) {
       .then(response => {
         // console.log(response.data);
         setState({ ...state, appointments })
-        //   // transition(SHOW)
-      }).catch(err => { console.log(err); })
+      })
+    //you dont need the .catch part if you will have it in your save function(in your appointment index file ), same issues with the cancelInterview below
+    // .catch(err => { console.log(err); })
   }
 
 
@@ -56,7 +57,8 @@ export default function Application(props) {
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         setState({ ...state, appointments })
-      }).catch(err => { console.log(err); })
+      })
+    // .catch(err => { console.log(err); })
 
   }
 
