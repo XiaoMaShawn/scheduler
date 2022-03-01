@@ -19,7 +19,6 @@ export function getAppointmentsForDay(state, day) {
   let result = appId.map((id) => {
     if (state.appointments[id]) {
       return state.appointments[id];
-
     }
     return [];
   });

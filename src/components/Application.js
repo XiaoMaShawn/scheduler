@@ -2,8 +2,11 @@ import "components/Application.scss";
 import React, { useState, useEffect } from "react";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
+// import Show from './Show';
+
 import axios from 'axios';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
+// import useVisualMode from "hooks/useVisualMode";
 
 
 export default function Application(props) {
@@ -18,6 +21,44 @@ export default function Application(props) {
 
   const setDay = day => setState({ ...state, day });
   // const setDays = days => setState((prev) => ({ ...prev, days }));
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(response => {
+        // console.log(response.data);
+        setState({ ...state, appointments })
+        //   // transition(SHOW)
+      }).catch(err => { console.log(err); })
+  }
+
+
+  function cancelInterview(id) {
+    // console.log("second id", id);
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+
+    return axios.delete(`/api/appointments/${id}`)
+      .then(() => {
+        setState({ ...state, appointments })
+      }).catch(err => { console.log(err); })
+
+  }
 
   useEffect(() => {
     Promise.all([
@@ -40,8 +81,19 @@ export default function Application(props) {
   // console.log('interviewers', dailyInterviewers);
 
   const schedule = dailyAppointments.map((appointment) => {
+
     const interview = getInterview(state, appointment.interview)
-    return (<Appointment key={appointment.id} interview={interview} interviewers={dailyInterviewers} {...appointment} />)
+
+    // console.log('interview here', interview);
+    // console.log('appointment here', appointment);
+
+    return (<Appointment
+      {...appointment}
+      key={appointment.id}
+      interview={interview}
+      interviewers={dailyInterviewers} bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
+    />)
   });
 
 
