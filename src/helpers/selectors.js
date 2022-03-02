@@ -59,12 +59,3 @@ export function getInterview(state, interview) {
   return ({ ...interview, interviewer: interviewerData })
 }
 
-export function spotsNumber(state, dayID) {
-  state.days.map((day) => {
-    if (day.id === dayID) {
-      // const spots = day.spots;
-    }
-    // return spots;
-  })
-
-}

@@ -22,8 +22,6 @@ const useApplicationData = () => {
     })
   }, [])
 
-  console.log('original state', state);
-
   const setDay = day => setState({ ...state, day });
 
 
@@ -57,7 +55,6 @@ const useApplicationData = () => {
 
 
   function cancelInterview(id) {
-    // console.log("second id", id);
 
     const appointment = {
       ...state.appointments[id],
@@ -83,7 +80,6 @@ const useApplicationData = () => {
       .then(() => {
         setState({ ...state, appointments, days })
       })
-    // .catch(err => { console.log(err); })
 
   }
 

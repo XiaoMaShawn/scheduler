@@ -7,11 +7,6 @@ const InterviewerListItem = (props) => {
 
   let liClass = classNames('interviewers__item', { 'interviewers__item--selected': props.selected })
 
-  // const clickHandler = (id) => {
-  //   props.setInterviewer(id);
-  // }
-  // onClick={() => clickHandler(props.id)}>
-
   return (
     <li className={liClass} onClick={props.setInterviewer}>
       <img

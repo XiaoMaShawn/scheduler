@@ -24,8 +24,6 @@ const ERROR_DELETING = "ERROR_DELETING";
 
 const Appointment = (props) => {
 
-  // console.log('Appointment Props', props);
-
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -37,8 +35,6 @@ const Appointment = (props) => {
     };
     transition(SAVING);
 
-    // console.log('second interview here', interview);
-    // console.log('id is here', props.id);
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch((err) => transition(ERROR_SAVING, true));
@@ -51,9 +47,6 @@ const Appointment = (props) => {
   function onDelete() {
     transition(CONFIRM);
 
-    // props.cancelInterview(props.id)
-    // console.log('id here', props.id);
-    // transition(EMPTY);
   };
 
   function onConfirm() {
@@ -75,7 +68,6 @@ const Appointment = (props) => {
       <Header time={props.time} />
 
       {mode === EMPTY && <Empty onAdd={() => {
-        // console.log("Clicked onAdd");
         transition(CREATE);
       }} />}
 
@@ -127,7 +119,7 @@ const Appointment = (props) => {
         onClose={onCancel}
       />)}
 
-      {/* {{props.interview ? <Show student={props.interview.student} interviewer={props.interview.interviewer} /> : <Empty />}} */}
+
     </article>
 
   );

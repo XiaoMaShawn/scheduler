@@ -6,7 +6,6 @@ import useApplicationData from "hooks/useApplicationData";
 
 // import axios from 'axios';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
-// import useVisualMode from "hooks/useVisualMode";
 
 
 export default function Application(props) {
@@ -15,29 +14,23 @@ export default function Application(props) {
 
   //use selector function to get the parsed appointments data
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  // console.log('appointments', dailyAppointments);
 
   //use selector function to get the parsed interviewers data
   const dailyInterviewers = getInterviewersForDay(state, state.day);
-  // console.log('interviewers', dailyInterviewers);
 
   const schedule = dailyAppointments.map((appointment) => {
 
     const interview = getInterview(state, appointment.interview)
 
-    // console.log('interview here', interview);
-    // console.log('appointment here', appointment);
-
     return (<Appointment
       {...appointment}
       key={appointment.id}
       interview={interview}
-      interviewers={dailyInterviewers} bookInterview={bookInterview}
+      interviewers={dailyInterviewers}
+      bookInterview={bookInterview}
       cancelInterview={cancelInterview}
     />)
   });
-
-
 
   //example for a single axios.get request
   // useEffect(() => {
@@ -47,11 +40,9 @@ export default function Application(props) {
   //   })
   // }, [])
 
-
   return (
     <main className="layout">
       <section className="sidebar">
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img
           className="sidebar--centered"
           src="images/logo.png"
@@ -73,6 +64,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );

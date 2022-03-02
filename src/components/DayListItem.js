@@ -26,7 +26,7 @@ const DayListItem = function(props) {
   }
 
   return (
-    <li onClick={onClick} className={liClass} selected={props.selected}>
+    <li data-testid='day' onClick={onClick} className={liClass} selected={props.selected}>
 
       <h2 className="text--regular">{props.name}</h2>
       <h3 className="text--light">{formatSpots(props.spots)} remaining</h3>
