@@ -1,5 +1,5 @@
 import "components/Application.scss";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import useApplicationData from "hooks/useApplicationData";

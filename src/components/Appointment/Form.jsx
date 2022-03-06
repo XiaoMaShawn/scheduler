@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InterviewerList from 'components/InterviewerList';
 import Button from 'components/Button';
 
+
 const Form = (props) => {
 
   const [student, setStudent] = useState(props.student || '');
@@ -22,6 +23,10 @@ const Form = (props) => {
   function validate() {
     if (student === "") {
       setError("Student name cannot be blank");
+      return;
+    }
+    if (interviewer === null) {
+      setError("Interviewer need to be selected")
       return;
     }
     setError('');
