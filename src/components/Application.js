@@ -3,8 +3,6 @@ import React from "react";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import useApplicationData from "hooks/useApplicationData";
-
-// import axios from 'axios';
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 
@@ -31,14 +29,6 @@ export default function Application(props) {
       cancelInterview={cancelInterview}
     />)
   });
-
-  //example for a single axios.get request
-  // useEffect(() => {
-  //   axios.get('/api/days').then(respose => {
-  //     // console.log(respose.data);
-  //     // setDays(respose.data)
-  //   })
-  // }, [])
 
   return (
     <main className="layout">

@@ -15,15 +15,12 @@ const useApplicationData = () => {
       axios.get('/api/days'),
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
-
     ]).then((result) => {
       setState(prev => ({ ...prev, days: result[0].data, appointments: result[1].data, interviewers: result[2].data }));
-
     })
   }, [])
 
   const setDay = day => setState({ ...state, day });
-
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -36,6 +33,7 @@ const useApplicationData = () => {
     };
 
     const oldAppointment = state.appointments[id].interview
+
     const days = state.days.map((day) => {
       if (day.appointments.includes(id)) {
         if (!oldAppointment) {
@@ -49,10 +47,7 @@ const useApplicationData = () => {
       .then(response => {
         setState({ ...state, appointments, days })
       })
-    //you dont need the .catch part if you will have it in your save function(in your appointment index file ), same issues with the cancelInterview below
-    // .catch(err => { console.log(err); })
   }
-
 
   function cancelInterview(id) {
 
@@ -66,6 +61,7 @@ const useApplicationData = () => {
     }
 
     const oldAppointment = state.appointments[id].interview
+
     const days = state.days.map((day) => {
       if (day.appointments.includes(id)) {
         if (oldAppointment) {
@@ -75,15 +71,11 @@ const useApplicationData = () => {
       return day;
     })
 
-
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         setState({ ...state, appointments, days })
       })
-
   }
-
-
 
   return ({
     state,

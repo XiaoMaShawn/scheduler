@@ -1,6 +1,5 @@
 import './styles.scss'
 
-
 import React from 'react';
 import Header from './Header';
 import Empty from './Empty';
@@ -21,7 +20,6 @@ const EDIT = "EDIT";
 const ERROR_SAVING = "ERROR_SAVING";
 const ERROR_DELETING = "ERROR_DELETING";
 
-
 const Appointment = (props) => {
 
   const { mode, transition, back } = useVisualMode(
@@ -33,6 +31,7 @@ const Appointment = (props) => {
       student: name,
       interviewer
     };
+
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
@@ -46,7 +45,6 @@ const Appointment = (props) => {
 
   function onDelete() {
     transition(CONFIRM);
-
   };
 
   function onConfirm() {
@@ -60,10 +58,7 @@ const Appointment = (props) => {
     back();
   }
 
-
-
   return (
-
     <article className="appointment">
       <Header time={props.time} />
 
@@ -118,10 +113,7 @@ const Appointment = (props) => {
         message={'Could not delete appointment'}
         onClose={onCancel}
       />)}
-
-
     </article>
-
   );
 };
 

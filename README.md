@@ -9,6 +9,10 @@ Interview Scheduler is a one page App which you could book, edit and delete the 
 
 Install dependencies with `npm install`.
 
+## Database setup
+
+the app need an extra database, please go https://github.com/lighthouse-labs/scheduler-api and follow the README to setup the API for this App.
+
 ## Running Webpack Development Server
 
 ```sh
